@@ -1,4 +1,4 @@
-# Modules
+# galaxy-io/modules
 
 [![CI](https://github.com/galaxy-io/modules/actions/workflows/ci.yaml/badge.svg)](https://github.com/galaxy-io/modules/actions/workflows/ci.yaml)
 
