@@ -1,7 +1,7 @@
 // Package secret resolves opaque references to secret material, keeping
 // plaintext out of configs and stores. Providers live in subpackages: datastore
 // encrypts into an app's own table, env reads the process environment, and
-// the aws and gcp modules wrap the cloud secret managers.
+// the aws and gcp packages wrap the cloud secret managers.
 package secret
 
 import (

@@ -1,5 +1,3 @@
 {
-  "secret": "0.0.0",
-  "secret/aws": "0.0.0",
-  "secret/gcp": "0.0.0"
+  "secret": "0.0.0"
 }
