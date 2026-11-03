@@ -5,6 +5,9 @@
   "release-type": "go",
   "tag-separator": "/",
   "packages": {
+    "identity": {
+      "component": "identity"
+    },
     "secret": {
       "component": "secret"
     }

@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package auth.v1;
+
+message GetAuthConfigRequest {}
+
+// GetAuthConfigResponse tells clients how to authenticate. An empty issuer
+// means no provider is configured: the UI renders without a session and every
+// other AuthService RPC is unimplemented.
+message GetAuthConfigResponse {
+  string issuer = 1;
+  // service_account_scopes are requested by non-interactive clients. The
+  // provider owns these values so clients do not need provider-specific
+  // project IDs or reserved scope knowledge.
+  repeated string service_account_scopes = 2;
+  // invite_only means sign-up is closed: Register is refused and the UI
+  // offers no way to create an organization. People join by invitation.
+  bool invite_only = 3;
+}
+
+// LoginRequest carries the credentials the app's own login page collected.
+// A successful login answers with an HttpOnly session cookie that every later
+// RPC carries; nothing about the provider reaches the browser.
+message LoginRequest {
+  string login_name = 1;
+  string password = 2;
+}
+
+message LoginResponse {}
+
+// GetTokenRequest exchanges a service account's credentials for an access
+// token. The server runs the grant against the provider, so SDKs and the
+// CLI need no provider knowledge and no route to it.
+message GetTokenRequest {
+  string client_id = 1;
+  string client_secret = 2;
+}
+
+// GetTokenResponse carries a bearer token and its lifetime in seconds.
+// Clients mint again as it nears expiry.
+message GetTokenResponse {
+  string access_token = 1;
+  int32 expires_in = 2;
+}
+
+// LogoutRequest ends the session and clears its cookie.
+message LogoutRequest {}
+
+message LogoutResponse {}
+
+// GetSessionRequest resolves the caller behind the session cookie. It is the
+// UI's sign-in check: unauthenticated means show the login page.
+message GetSessionRequest {}
+
+message GetSessionResponse {
+  string user_id = 1;
+  string name = 2;
+  string email = 3;
+  string avatar_url = 4;
+}
+
+// RegisterRequest creates a tenant and its first admin.
+message RegisterRequest {
+  string org_name = 1;
+  string given_name = 2;
+  string family_name = 3;
+  string email = 4;
+  string password = 5;
+}
+
+message RegisterResponse {
+  string tenant_id = 1;
+}
+
+// AcceptInviteRequest redeems an invite and sets the new member's password.
+// The code is the credential, which is why this RPC is public.
+message AcceptInviteRequest {
+  string user_id = 1;
+  string code = 2;
+  string password = 3;
+}
+
+message AcceptInviteResponse {}
