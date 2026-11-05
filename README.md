@@ -1,6 +1,7 @@
 # galaxy-io/modules
 
 [![CI](https://github.com/galaxy-io/modules/actions/workflows/ci.yaml/badge.svg)](https://github.com/galaxy-io/modules/actions/workflows/ci.yaml)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 Shared Go building blocks for Galaxy apps. Each module is versioned on its own.
 
